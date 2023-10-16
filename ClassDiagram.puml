@@ -1,0 +1,30 @@
+@startuml
+title Parser Class Diagram
+namespace main {
+    class BubbleSort << (S,Aquamarine) >> {
+        + Sort(arr []int) []int
+
+    }
+    class Context << (S,Aquamarine) >> {
+        - sorter Sorter
+
+        + SetSorter(sorter Sorter) 
+        + ExecuteSort(arr []int) []int
+
+    }
+    class InsertionSort << (S,Aquamarine) >> {
+        + Sort(arr []int) []int
+
+    }
+    interface Sorter  {
+        + Sort( []int) []int
+
+    }
+}
+
+"main.Sorter" <|-- "implements""main.BubbleSort"
+"main.Sorter" <|-- "implements""main.InsertionSort"
+
+"main.Context""uses" o-- "main.Sorter"
+
+@enduml
