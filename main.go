@@ -1,43 +1,49 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Strategy interface {
-	Execute()
+type Sorter interface {
+	Sort([]int) []int
 }
 
-type ConcreteStrategyA struct{}
+type BubbleSort struct{}
 
-func (s *ConcreteStrategyA) Execute() {
-	fmt.Println("Executing strategy A")
+func (bs *BubbleSort) Sort(arr []int) []int {
+	// Bubble Sort implementation
+	return arr
 }
 
-type ConcreteStrategyB struct{}
+type InsertionSort struct{}
 
-func (s *ConcreteStrategyB) Execute() {
-	fmt.Println("Executing strategy B")
+func (is *InsertionSort) Sort(arr []int) []int {
+	// Insertion Sort implementation
+	return arr
 }
 
 type Context struct {
-	strategy Strategy
+	sorter Sorter
 }
 
-func (c *Context) SetStrategy(strategy Strategy) {
-	c.strategy = strategy
+func (c *Context) SetSorter(sorter Sorter) {
+	c.sorter = sorter
 }
 
-func (c *Context) ExecuteStrategy() {
-	c.strategy.Execute()
+func (c *Context) ExecuteSort(arr []int) []int {
+	return c.sorter.Sort(arr)
 }
 
 func main() {
-	context := Context{}
+	arr := []int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}
 
-	strategyA := &ConcreteStrategyA{}
-	context.SetStrategy(strategyA)
-	context.ExecuteStrategy()
+	bubbleSort := &BubbleSort{}
+	insertionSort := &InsertionSort{}
 
-	strategyB := &ConcreteStrategyB{}
-	context.SetStrategy(strategyB)
-	context.ExecuteStrategy()
+	context := &Context{}
+	context.SetSorter(bubbleSort)
+	fmt.Println("Bubble Sort:", context.ExecuteSort(arr))
+
+	context.SetSorter(insertionSort)
+	fmt.Println("Insertion Sort:", context.ExecuteSort(arr))
 }
