@@ -23,15 +23,15 @@ func (is *InsertionSort) Sort(arr []int) []int {
 }
 
 type Context struct {
-	sorter Sorter
+	Sorter Sorter
 }
 
 func (c *Context) SetSorter(sorter Sorter) {
-	c.sorter = sorter
+	c.Sorter = sorter
 }
 
 func (c *Context) ExecuteSort(arr []int) []int {
-	return c.sorter.Sort(arr)
+	return c.Sorter.Sort(arr)
 }
 
 func main() {
