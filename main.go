@@ -1,49 +1,32 @@
 package main
 
-import (
-	"fmt"
-)
-
-type Sorter interface {
-	Sort([]int) []int
-}
-
-type BubbleSort struct{}
-
-func (bs *BubbleSort) Sort(arr []int) []int {
-	// Bubble Sort implementation
-	return arr
-}
-
-type InsertionSort struct{}
-
-func (is *InsertionSort) Sort(arr []int) []int {
-	// Insertion Sort implementation
-	return arr
-}
-
-type Context struct {
-	Sorter Sorter
-}
-
-func (c *Context) SetSorter(sorter Sorter) {
-	c.Sorter = sorter
-}
-
-func (c *Context) ExecuteSort(arr []int) []int {
-	return c.Sorter.Sort(arr)
-}
-
 func main() {
-	arr := []int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}
 
-	bubbleSort := &BubbleSort{}
-	insertionSort := &InsertionSort{}
+}
 
-	context := &Context{}
-	context.SetSorter(bubbleSort)
-	fmt.Println("Bubble Sort:", context.ExecuteSort(arr))
+// MyInterface only has one method, notice the signature return value
+type MyInterface interface {
+	foo() bool
+}
 
-	context.SetSorter(insertionSort)
-	fmt.Println("Insertion Sort:", context.ExecuteSort(arr))
+// MyStruct1 will implement the foo() bool function so it will have an "extends" association with MyInterface
+type MyStruct1 struct {
+}
+
+func (s1 *MyStruct1) foo() bool {
+	return true
+}
+
+// MyStruct2 will be directly composed of MyStruct1 so it will have a composition relationship with it
+type MyStruct2 struct {
+	MyStruct1
+}
+
+// MyStruct3 will have a foo() function but the return value is not a bool, so it will not have any relationship with MyInterface
+type MyStruct3 struct {
+	Foo MyStruct1
+}
+
+func (s3 *MyStruct3) foo() {
+
 }
